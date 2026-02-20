@@ -1,4 +1,6 @@
-﻿using Starter_CleanArch_UAA2.ApplicationCore.Interfaces.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using Starter_CleanArch_UAA2.ApplicationCore.Interfaces.Repositories;
+using Starter_CleanArch_UAA2.Domain.Enum;
 using Starter_CleanArch_UAA2.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -26,9 +28,9 @@ namespace Starter_CleanArch_UAA2.Infrastructure.Database.NewsLetter_Repository
                     .ToList();
         }
         
-        public IEnumerable<NewsLetterSample> GetMany(int offset, int limit)
+        public IEnumerable<NewsLetterSample> GetMany(string email, NewsLetterChoices newsLetter)
         {
-            IEnumerable<NewsLetterSample> NerwsLetters =  _appDbContext.NewsLetterSamples.Take().ToList();
+            IEnumerable<NewsLetterSample> NerwsLetters =  _appDbContext.NewsLetterSamples.Where(e => e.Email == email).AsTracking().ToList();
 
             return NerwsLetters;
 
@@ -36,6 +38,11 @@ namespace Starter_CleanArch_UAA2.Infrastructure.Database.NewsLetter_Repository
 
         public IEnumerable<NewsLetterSample> CreateSubscription(NewsLetterSample sample)
         {
+            NewsLetterSample sample = _appDbContext.NewsLetterSamples.SingleOrDefault(s => s.Email == );
+
+
+            NewsLetterSample newsLetterSample = new NewsLetterSample();
+
             throw new NotImplementedException();
         }
 
