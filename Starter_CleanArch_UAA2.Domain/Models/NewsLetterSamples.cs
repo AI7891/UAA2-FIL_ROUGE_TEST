@@ -7,8 +7,9 @@ using System.Text;
 
 namespace Starter_CleanArch_UAA2.Domain.Models
 {
-    public class NewsLetterSample
+    public class NewsLetterSamples
     {
+        private List<NewsLetterChoices> newsLetterChoices;
         #region Properties
         public string Name { get; private set; }
         public string LastName { get; private set; }
@@ -16,9 +17,9 @@ namespace Starter_CleanArch_UAA2.Domain.Models
         public NewsLetterChoices newsLetter { get; private set; }
         #endregion
         #region Builders
-        public NewsLetterSample() { }
+        public NewsLetterSamples() { }
 
-        public NewsLetterSample( string name, string lastName, string email, NewsLetterChoices choices )
+        public NewsLetterSamples( string name, string lastName, string email, NewsLetterChoices choices )
         {
             if (string.IsNullOrEmpty(email) || MailAddress.TryCreate(email, out _))
             {
@@ -29,6 +30,14 @@ namespace Starter_CleanArch_UAA2.Domain.Models
             LastName = lastName;
             Email = email;
             newsLetter = choices;
+        }
+
+        public NewsLetterSamples(string name, string lastName, string email, List<NewsLetterChoices> newsLetterChoices)
+        {
+            Name = name;
+            LastName = lastName;
+            Email = email;
+            this.newsLetterChoices = newsLetterChoices;
         }
 
         #endregion

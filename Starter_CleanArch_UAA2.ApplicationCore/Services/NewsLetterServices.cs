@@ -8,22 +8,22 @@ namespace Starter_CleanArch_UAA2.ApplicationCore.Services
 {
     public class NewsLetterServices : INewsLetterServices
     {
-        public NewsLetterSample GetByEmail(string email)
+        public NewsLetterSamples GetByEmail(string email)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<NewsLetterSample> Subscribe(NewsLetterSample sample)
+        public IEnumerable<NewsLetterSamples> Subscribe(NewsLetterSamples sample)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<NewsLetterSample> Unsubscribe(NewsLetterSample sample)
+        public IEnumerable<NewsLetterSamples> Unsubscribe(NewsLetterSamples sample)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<NewsLetterSample> UpdateSubs(NewsLetterSample newsLetterSample)
+        public IEnumerable<NewsLetterSamples> UpdateSubs(NewsLetterSamples newsLetterSample)
         {
             throw new NotImplementedException();
         }

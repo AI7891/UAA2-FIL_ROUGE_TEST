@@ -24,7 +24,7 @@ namespace Starter_CleanArch_UAA2.Infrastructure.Database.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Starter_CleanArch_UAA2.Domain.Models.NewsLetterSample", b =>
+            modelBuilder.Entity("Starter_CleanArch_UAA2.Domain.Models.NewsLetterSamples", b =>
                 {
                     b.Property<string>("Email")
                         .HasMaxLength(400)

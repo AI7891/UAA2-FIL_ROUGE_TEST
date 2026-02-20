@@ -10,7 +10,7 @@ namespace Starter_CleanArch_UAA2.Infrastructure.Database
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<NewsLetterSample> NewsLetterSamples { get; set; }
+        public DbSet<NewsLetterSamples> NewsLetterSamples { get; set; }
 
         /*Initiating CTOR : Dependencies Injection */
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }

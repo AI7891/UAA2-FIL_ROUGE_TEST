@@ -8,14 +8,14 @@ namespace Starter_CleanArch_UAA2.ApplicationCore.Interfaces.Repositories
 {
     public interface INewsLetterRepository
     {
-        IEnumerable<NewsLetterSample> GetByEmail(string email);
+        IEnumerable<NewsLetterSamples> GetByEmail(string email);
 
-        IEnumerable<NewsLetterSample> GetMany(string email, NewsLetterChoices newsLetter); 
+        IEnumerable<NewsLetterSamples> GetMany(string email, NewsLetterChoices newsLetter); 
 
-        IEnumerable<NewsLetterSample> CreateSubscription(NewsLetterSample sample);
-        IEnumerable<NewsLetterSample> UpdateSubscription (NewsLetterSample sample);
+        IEnumerable<NewsLetterSamples> CreateSubscription(NewsLetterSamples sample, string email);
+        IEnumerable<NewsLetterSamples> UpdateSubscription (NewsLetterSamples sample, string email);
 
-        IEnumerable<NewsLetterSample> DeleteSubscription(NewsLetterSample sample);
+        IEnumerable<NewsLetterSamples> DeleteSubscription(NewsLetterSamples sample, string email);
 
         bool Delete(string email);
     }

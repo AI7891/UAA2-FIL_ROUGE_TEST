@@ -8,9 +8,9 @@ using System.Text;
 
 namespace Starter_CleanArch_UAA2.Infrastructure.Database.Configurations
 {
-    public class NewsLetterConfig : IEntityTypeConfiguration<NewsLetterSample>
+    public class NewsLetterConfig : IEntityTypeConfiguration<NewsLetterSamples>
     {
-        public void Configure(EntityTypeBuilder<NewsLetterSample> builder)
+        public void Configure(EntityTypeBuilder<NewsLetterSamples> builder)
         {
             #region Table
             builder.ToTable("NEWS_LETTER");
