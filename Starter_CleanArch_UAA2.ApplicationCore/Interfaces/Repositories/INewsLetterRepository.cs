@@ -8,7 +8,7 @@ namespace Starter_CleanArch_UAA2.ApplicationCore.Interfaces.Repositories
 {
     public interface INewsLetterRepository
     {
-        IEnumerable<NewsLetterSamples> GetByEmail(string email);
+        IEnumerable<NewsLetterSamples> GetByEmail(string email, bool Newsletter);
 
         IEnumerable<NewsLetterSamples> GetMany(string email, NewsLetterChoices newsLetter); 
 
@@ -16,7 +16,6 @@ namespace Starter_CleanArch_UAA2.ApplicationCore.Interfaces.Repositories
         IEnumerable<NewsLetterSamples> UpdateSubscription (NewsLetterSamples sample, string email);
 
         IEnumerable<NewsLetterSamples> DeleteSubscription(NewsLetterSamples sample, string email);
-
-        bool Delete(string email);
+       
     }
 }

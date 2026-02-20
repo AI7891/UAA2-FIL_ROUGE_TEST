@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.Identity.Client;
 using Starter_CleanArch_UAA2.ApplicationCore.Interfaces.Repositories;
 using Starter_CleanArch_UAA2.Domain.Enum;
 using Starter_CleanArch_UAA2.Domain.Models;
@@ -22,14 +23,20 @@ namespace Starter_CleanArch_UAA2.Infrastructure.Database.NewsLetter_Repository
 
         #region Methods
 
-        public IEnumerable<NewsLetterSamples> GetByEmail(string email)
+        public IEnumerable<NewsLetterSamples> GetByEmail(string email, bool Newsletter = false)
         {
-            return _appDbContext.NewsLetterSamples
-                    .Where(user => user.Email == email)
-                    .ToList();
+            List<NewsLetterSamples> query = _appDbContext.NewsLetterSamples
+             .Where(user => user.Email == email)
+             .Select(
+                user => new {
+                    user.Email,
+                }
+                );
+
+            return query;   
         }
         
-        public IEnumerable<NewsLetterSamples> GetMany(string email, NewsLetterChoices newsLetter)
+        public IEnumerable<NewsLetterSamples> GetMany(string email)
         {
             IEnumerable<NewsLetterSamples> NerwsLetters =  _appDbContext.NewsLetterSamples.Where(e => e.Email == email).AsTracking().ToList();
 
@@ -39,15 +46,15 @@ namespace Starter_CleanArch_UAA2.Infrastructure.Database.NewsLetter_Repository
 
         public IEnumerable<NewsLetterSamples> CreateSubscription(NewsLetterSamples sample, string email)
         {
-            NewsLetterSamples sample1 = _appDbContext.NewsLetterSamples.SingleOrDefault(s => s.Email == email);
+            NewsLetterSamples sampleToCreate = _appDbContext.NewsLetterSamples.SingleOrDefault(s => s.Email == email);
 
 
             NewsLetterSamples newsLetterSampleToCreate = new NewsLetterSamples(
 
-                sample.Name,
-                sample.LastName,
-                sample.Email,
-                new List<NewsLetterChoices> { sample.newsLetter }
+                sampleToCreate.Name,
+                sampleToCreate.LastName,
+                sampleToCreate.Email,
+                new List<NewsLetterChoices> { sampleToCreate.newsLetter }
                 );
 
             EntityEntry<NewsLetterSamples> newElement = _appDbContext.Add(newsLetterSampleToCreate);
@@ -60,26 +67,26 @@ namespace Starter_CleanArch_UAA2.Infrastructure.Database.NewsLetter_Repository
         public IEnumerable<NewsLetterSamples> DeleteSubscription(NewsLetterSamples dBSample, string email)
         {
            IEnumerable<NewsLetterSamples> entityToErase = GetByEmail(email);
-            if (entityToErase is null)
+            if (!entityToErase.Any())
             {
                 throw new ArgumentException($"The Email Provided { nameof(email) } does not exist, try again");
             }
             /*Removes the desired Email*/
-            _appDbContext.Remove(entityToErase);
-            
-            /*It Updates the remaining data*/
-            EntityEntry<NewsLetterSamples> result = _appDbContext.Update(dBSample);
+            _appDbContext.NewsLetterSamples.RemoveRange(entityToErase);
 
             /*It saves the changes done on the DB*/
             _appDbContext.SaveChanges();
 
-
-            return (IEnumerable<NewsLetterSamples>)result;
+            return _appDbContext.NewsLetterSamples.ToList().AsEnumerable(); 
             
         }
         public IEnumerable<NewsLetterSamples> UpdateSubscription(NewsLetterSamples sample, string email)
         {
-            throw new NotImplementedException();
+            EntityEntry<NewsLetterSamples> toUpdate = _appDbContext.Update(sample);
+
+            _appDbContext.SaveChanges();
+
+            return _appDbContext.NewsLetterSamples.ToList().AsEnumerable();
         }
         #endregion
 

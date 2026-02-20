@@ -32,6 +32,7 @@ namespace Starter_CleanArch_UAA2.Domain.Models
             newsLetter = choices;
         }
 
+        /*To use when retrieving the list of Newsletter Preferences On Infrastructure*/
         public NewsLetterSamples(string name, string lastName, string email, List<NewsLetterChoices> newsLetterChoices)
         {
             Name = name;

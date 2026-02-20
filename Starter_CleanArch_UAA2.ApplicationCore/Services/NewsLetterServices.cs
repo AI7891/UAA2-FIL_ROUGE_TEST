@@ -1,4 +1,5 @@
-﻿using Starter_CleanArch_UAA2.ApplicationCore.Interfaces.Services;
+﻿using Starter_CleanArch_UAA2.ApplicationCore.Interfaces.Repositories;
+using Starter_CleanArch_UAA2.ApplicationCore.Interfaces.Services;
 using Starter_CleanArch_UAA2.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -8,14 +9,31 @@ namespace Starter_CleanArch_UAA2.ApplicationCore.Services
 {
     public class NewsLetterServices : INewsLetterServices
     {
-        public NewsLetterSamples GetByEmail(string email)
+        #region Dependency Injection = INewsLetterRepository
+
+        private INewsLetterRepository _newsLetterRepository;
+
+        public NewsLetterServices(INewsLetterRepository newsLetterRepository)
         {
-            throw new NotImplementedException();
+            _newsLetterRepository = newsLetterRepository;
+        }
+        #endregion
+
+        #region Methods - Business Logic
+        public IEnumerable<NewsLetterSamples> GetByEmail(string email)
+        {
+            return _newsLetterRepository.GetByEmail(email);
         }
 
         public IEnumerable<NewsLetterSamples> Subscribe(NewsLetterSamples sample)
         {
-            throw new NotImplementedException();
+            if (sample == null)
+            {
+                throw new ArgumentNullException($"this {nameof(sample)} is invalid, do try again");
+            }
+
+            return _newsLetterRepository.CreateSubscription(sample).ToList();
+ 
         }
 
         public IEnumerable<NewsLetterSamples> Unsubscribe(NewsLetterSamples sample)
@@ -28,4 +46,5 @@ namespace Starter_CleanArch_UAA2.ApplicationCore.Services
             throw new NotImplementedException();
         }
     }
+        #endregion    
 }

@@ -7,7 +7,7 @@ namespace Starter_CleanArch_UAA2.ApplicationCore.Interfaces.Services
 {
     public interface INewsLetterServices
     {
-        NewsLetterSamples GetByEmail(string email);
+        IEnumerable<NewsLetterSamples> GetByEmail(string email);
         IEnumerable<NewsLetterSamples> Subscribe(NewsLetterSamples sample);
         IEnumerable<NewsLetterSamples> UpdateSubs(NewsLetterSamples newsLetterSample);
         IEnumerable<NewsLetterSamples> Unsubscribe(NewsLetterSamples sample);
