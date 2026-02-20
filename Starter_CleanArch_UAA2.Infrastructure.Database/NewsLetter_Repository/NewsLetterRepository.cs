@@ -8,24 +8,30 @@ namespace Starter_CleanArch_UAA2.Infrastructure.Database.NewsLetter_Repository
 {
     public class NewsLetterRepository : INewsLetterRepository
     {
-        public bool Delete(string email)
+        #region Dependency Injection
+        private readonly AppDbContext _appDbContext;
+
+        public NewsLetterRepository(AppDbContext appDbContext)
         {
-            throw new NotImplementedException();
+            _appDbContext = appDbContext;
         }
+        #endregion
+
+        #region Methods
 
         public IEnumerable<NewsLetterSample> GetByEmail(string email)
         {
-            throw new NotImplementedException();
+            return _appDbContext.NewsLetterSamples
+                    .Where(user => user.Email == email)
+                    .ToList();
         }
-
-        public NewsLetterSample GetById(long id)
+        
+        public IEnumerable<NewsLetterSample> GetMany(int offset, int limit)
         {
-            throw new NotImplementedException();
-        }
+            IEnumerable<NewsLetterSample> NerwsLetters =  _appDbContext.NewsLetterSamples.Take().ToList();
 
-        public IEnumerable<NewsLetterSample> GetMany(int inset, int offset)
-        {
-            throw new NotImplementedException();
+            return NerwsLetters;
+
         }
 
         public IEnumerable<NewsLetterSample> CreateSubscription(NewsLetterSample sample)
@@ -42,5 +48,11 @@ namespace Starter_CleanArch_UAA2.Infrastructure.Database.NewsLetter_Repository
         {
             throw new NotImplementedException();
         }
+        public bool Delete(string email)
+        {
+            throw new NotImplementedException();
+        } 
+        #endregion
+
     }
 }
