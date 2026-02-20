@@ -23,15 +23,12 @@ namespace Starter_CleanArch_UAA2.Infrastructure.Database.NewsLetter_Repository
 
         #region Methods
 
-        public IEnumerable<NewsLetterSamples> GetByEmail(string email, bool Newsletter = false)
+        public IEnumerable<NewsLetterSamples> GetByEmail(string email)
         {
             List<NewsLetterSamples> query = _appDbContext.NewsLetterSamples
              .Where(user => user.Email == email)
-             .Select(
-                user => new {
-                    user.Email,
-                }
-                );
+             .AsEnumerable()
+             .ToList();
 
             return query;   
         }
@@ -88,6 +85,7 @@ namespace Starter_CleanArch_UAA2.Infrastructure.Database.NewsLetter_Repository
 
             return _appDbContext.NewsLetterSamples.ToList().AsEnumerable();
         }
+       
         #endregion
 
     }

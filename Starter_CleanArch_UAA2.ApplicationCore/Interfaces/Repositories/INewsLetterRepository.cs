@@ -8,9 +8,9 @@ namespace Starter_CleanArch_UAA2.ApplicationCore.Interfaces.Repositories
 {
     public interface INewsLetterRepository
     {
-        IEnumerable<NewsLetterSamples> GetByEmail(string email, bool Newsletter);
+        IEnumerable<NewsLetterSamples> GetByEmail(string email);
 
-        IEnumerable<NewsLetterSamples> GetMany(string email, NewsLetterChoices newsLetter); 
+        IEnumerable<NewsLetterSamples> GetMany(string email); 
 
         IEnumerable<NewsLetterSamples> CreateSubscription(NewsLetterSamples sample, string email);
         IEnumerable<NewsLetterSamples> UpdateSubscription (NewsLetterSamples sample, string email);

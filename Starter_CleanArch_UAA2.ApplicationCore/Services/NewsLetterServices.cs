@@ -25,25 +25,39 @@ namespace Starter_CleanArch_UAA2.ApplicationCore.Services
             return _newsLetterRepository.GetByEmail(email);
         }
 
-        public IEnumerable<NewsLetterSamples> Subscribe(NewsLetterSamples sample)
+        public IEnumerable<NewsLetterSamples> Subscribe(NewsLetterSamples sample, string email)
         {
             if (sample == null)
             {
                 throw new ArgumentNullException($"this {nameof(sample)} is invalid, do try again");
             }
 
-            return _newsLetterRepository.CreateSubscription(sample).ToList();
+            return _newsLetterRepository.CreateSubscription(sample, email).ToList();
  
         }
 
-        public IEnumerable<NewsLetterSamples> Unsubscribe(NewsLetterSamples sample)
+        public IEnumerable<NewsLetterSamples> Unsubscribe(NewsLetterSamples sample, string email)
         {
-            throw new NotImplementedException();
+            if (sample == null)
+            {
+                throw new ArgumentNullException($"this {nameof(sample)} is invalid, do try again");
+            }
+
+            IEnumerable<NewsLetterSamples> toBeUnsuscribe = _newsLetterRepository.DeleteSubscription(sample, email);
+
+            return toBeUnsuscribe;
+            
         }
 
-        public IEnumerable<NewsLetterSamples> UpdateSubs(NewsLetterSamples newsLetterSample)
+        public IEnumerable<NewsLetterSamples> UpdateSubs(NewsLetterSamples newsLetterSample, string email)
         {
-            throw new NotImplementedException();
+            IEnumerable<NewsLetterSamples> toBeUpdated = _newsLetterRepository.GetByEmail(email);
+            if (newsLetterSample == null)
+            {
+                throw new ArgumentNullException($"this {nameof(newsLetterSample)} is invalid, do try again");
+            }
+
+            return _newsLetterRepository.UpdateSubscription(newsLetterSample, email).ToList();
         }
     }
         #endregion    
